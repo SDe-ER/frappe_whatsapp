@@ -356,3 +356,15 @@ class TestSDCEWebhookSecurity(IntegrationTestCase):
 		doc = frappe.get_doc("WhatsApp Account", ACC)
 		self.assertEqual(doc.get_password("token"), "NEW-BUSINESS-TOKEN")
 		self.assertEqual((doc.business_id, doc.phone_id), (WABA, PHONE))
+
+	def test_long_access_token_saved_intact(self):
+		"""Meta access tokens can exceed 300 characters; the Password field must keep them intact and encrypted."""
+		frappe.set_user("Administrator")
+		long_token = "EAA" + frappe.generate_hash(length=397)  # 400 characters
+		doc = frappe.get_doc("WhatsApp Account", ACC)
+		doc.token = long_token
+		doc.save(ignore_permissions=True)
+		self.assertEqual(len(doc.get_password("token")), 400)
+		self.assertEqual(frappe.get_doc("WhatsApp Account", ACC).get_password("token"), long_token)
+		self.assertNotEqual(frappe.db.get_value("WhatsApp Account", ACC, "token"), long_token)  # column holds a mask only
+		self.assertEqual(frappe.get_meta("WhatsApp Account").get_field("token").fieldtype, "Password")
