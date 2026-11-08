@@ -8,7 +8,7 @@ import frappe
 from frappe import _
 
 
-@frappe.whitelist(allow_guest=True)
+# SDCE (DEC-20261108-002): whitelist removed - Flow endpoint stays disabled (no Flows in use).
 def handle_flow_request():
     """
     Handle WhatsApp Flow data exchange requests.

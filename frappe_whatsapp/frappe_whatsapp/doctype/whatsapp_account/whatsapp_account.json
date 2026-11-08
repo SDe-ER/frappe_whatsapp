@@ -17,6 +17,8 @@
   "column_break_byyq",
   "phone_id",
   "app_id",
+  "app_secret",
+  "embedded_signup_config_id",
   "business_id",
   "is_default_incoming",
   "is_default_outgoing",
@@ -55,6 +57,17 @@
    "fieldname": "app_id",
    "fieldtype": "Data",
    "label": "App ID"
+  },
+  {
+   "fieldname": "app_secret",
+   "fieldtype": "Password",
+   "label": "App Secret",
+   "description": "Meta App Secret. Required: webhook POSTs are rejected unless X-Hub-Signature-256 matches."
+  },
+  {
+   "fieldname": "embedded_signup_config_id",
+   "fieldtype": "Data",
+   "label": "Embedded Signup Config ID"
   },
   {
    "fieldname": "webhook_verify_token",
@@ -96,7 +109,7 @@
    "label": "Is Default Outgoing"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "allow_auto_read_receipt",
    "fieldtype": "Check",
    "label": "Allow auto read receipt"
@@ -105,7 +118,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-01 18:30:21.339317",
+ "modified": "2026-11-08 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "Frappe Whatsapp",
  "name": "WhatsApp Account",
